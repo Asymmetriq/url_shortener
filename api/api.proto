@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "github.com/Asymmetriq/url_shortener/pkg/api";
+
+import "google/api/http.proto";
+import "google/api/annotations.proto";
+
+
+service Service {
+    rpc Ping(Empty) returns (Empty) {
+        option (google.api.http) = {
+            get: "/ping",
+        };
+    };
+
+    rpc Create(CreateRequest) returns (CreateResponse) {
+        option (google.api.http) = {
+            get: "/create",
+        };
+    }
+
+    rpc Get(GetRequest) returns (GetResponse) {
+        option (google.api.http) = {
+            get: "/get",
+        };
+    }
+};
+
+message Empty {}
+
+message CreateRequest {
+    string url = 1;
+}
+
+message CreateResponse {
+    string short_url = 1;
+}
+
+message GetRequest {
+    string short_url = 1;
+}
+
+message GetResponse {
+    string url = 1;
+}
