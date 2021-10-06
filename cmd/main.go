@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"github.com/Asymmetriq/url_shortener/internal/service"
+	"github.com/Asymmetriq/url_shortener/internal/storage"
 	"github.com/Asymmetriq/url_shortener/pkg/api"
 	gw "github.com/Asymmetriq/url_shortener/pkg/pb/api"
 
@@ -25,9 +26,10 @@ func main() {
 		log.Fatal(err)
 	}
 
+	storageDB := &storage.StorageDB{DB: db}
 	// server
 	srv := &service.Service{
-		DB: db,
+		Storage: storageDB,
 	}
 
 	// GRPC
