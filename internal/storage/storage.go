@@ -19,11 +19,12 @@ func CreateMap() *ConcurrentMap {
 
 func (c *ConcurrentMap) Get(s string) (string, error) {
 	c.mtx.RLock()
+	defer c.mtx.RUnlock()
 	ogUrl, ok := c.con_map[s]
 	if !ok {
 		return ogUrl, errors.New("no such value")
 	}
-	c.mtx.RUnlock()
+
 	return ogUrl, nil
 }
 
